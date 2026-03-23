@@ -2,3 +2,6 @@
 __pycache__/
 *.pyc
 local_processed/
+codealike.json
+.vscode/
+.env

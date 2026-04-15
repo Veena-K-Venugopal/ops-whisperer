@@ -5,7 +5,9 @@ def load_inventory(filename):
     return df
 
 def get_low_stock(df):
-    filtered_data = df[df['quantity'] <= 10]
+    new_df = df.copy()
+    new_df['days_of_cover'] = new_df['quantity'] / new_df['avg_daily_sales'].replace(0, float('nan')).fillna(999)
+    filtered_data = new_df[new_df['days_of_cover'] < 7].round()
     return filtered_data
 
 def get_inventory_value(df):
@@ -24,4 +26,4 @@ if __name__ == "__main__":
     low_stock = get_low_stock(data)
     total_inventory_value = get_inventory_value(data)
     category_summary = get_category_summary(data)
-    print(category_summary)
+    print(low_stock)
